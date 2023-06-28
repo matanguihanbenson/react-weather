@@ -7,7 +7,7 @@ const navigate = useNavigate();
 
 const handleSearch = (e) => {
   e.preventDefault();
-  navigate(`/check/${searchQuery}`);
+  navigate(`/react-weather/check/${searchQuery}`);
 };
 
 const handleChange = (e) => {

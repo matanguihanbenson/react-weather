@@ -13,8 +13,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
       <Route path="/" element={<App />} />
         <Route path="/react-weather" element={<App />} />
-        <Route path="/check/:query" element={<Weather />} />
-        <Route path="/check/" element={<WeatherNone />} />
+        <Route path="/react-weather/check/:query" element={<Weather />} />
+        <Route path="/react-weather/check/" element={<WeatherNone />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
