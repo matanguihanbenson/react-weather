@@ -73,7 +73,7 @@ function Weather() {
   }, [query]);
 
   return (
-    <div className="w-full h-screen bg-yellow-400 flex flex-col gap-8 justify-center items-center p-6 overflow-x-hidden">
+    <div className="w-full h-screen bg-yellow-400 flex flex-col gap-8 justify-center items-center p-6 overflow-x-hidden overflow-y-hidden">
       <FormSearch />
       {loading ? (
         <p>Loading weather data...</p>
