@@ -21,7 +21,7 @@ const handleChange = (e) => {
             type="text"
             name="check"
             placeholder="Search for a location..."
-            className="min-w-[80%] w-[300px] h-10 outline-none indent-4 focus:outline-none"
+            className="min-w-[60%] w-[300px] h-10 outline-none indent-4 focus:outline-none"
             value={searchQuery}
             onChange={handleChange}
           />
