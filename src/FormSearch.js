@@ -61,13 +61,13 @@ function FormSearch() {
 
   return (
     <div className="flex justify-center w-[400px] flex-col items-center">
-      <form onSubmit={handleSearch} className="flex w-[100%] flex-col relative">
+      <form onSubmit={handleSearch} className="flex md:w-[100%] w-[90%] flex-col relative">
         <div className='w-full flex items-center justify-center'>
           <input
             type="text"
             name="check"
             placeholder="Search for a location..."
-            className="min-w-[60%] rounded-l-md w-[300px] h-14 outline-none indent-4 focus:outline-none bg-[#ebebeb]"
+            className="rounded-l-md w-[300px] h-14 outline-none indent-4 focus:outline-none bg-[#ebebeb]"
             value={searchQuery}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -82,7 +82,7 @@ function FormSearch() {
           <div className="w-full bg-white suggestions absolute bottom-0 h-max top-14">
             {suggest.map((location) => (
               <Link to={`/react-weather/check/${location.name} ${location.region} ${location.country}`} onClick={handleSuggestionClick}>
-                <p key={location.id} className='line-clamp-1 animate__animated animate__bounceIn h-10 py-2 px-3 border-b-[1px] w-[90%] mx-auto border-[#ccc]'>{location.name}, {location.region}, {location.country}</p>
+                <p key={location.id} className='line-clamp-1 overflow-hidden whitespace-nowrap animate__animated animate__bounceIn h-10 py-2 px-3 border-b-[1px] w-[90%] mx-auto border-[#ccc]'>{location.name}, {location.region}, {location.country}</p>
               </Link>
             ))}
           </div>

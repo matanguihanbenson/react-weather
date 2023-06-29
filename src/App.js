@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import FormSearch from './FormSearch';
-import imageLoading from './res/34338d26023e5515f6cc8969aa027bca_w200.gif';
-function GetLocation() {
+import NotFound from './Notfound';
+import Forecast from './Forecast';
+
+function App() {
+  const [isSearchFieldOpen, setSearchFieldOpen] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [locationpos, setLocationpos] = useState('');
+
+  const handleSearchButtonClick = () => {
+    setSearchFieldOpen(true);
+  };
+
+  const handleCloseButtonClick = () => {
+    setSearchFieldOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,11 +25,12 @@ function GetLocation() {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            const locationpos = `${latitude}, ${longitude}`;
+            const locPos = `${latitude}, ${longitude}`;
+            setLocationpos(locPos); // Set the locationpos state
             const options = {
               method: 'GET',
               url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-              params: { q: locationpos },
+              params: { q: locPos },
               headers: {
                 'X-RapidAPI-Key': 'ef2f9f3508msh222e7bd07a8956fp1f91c7jsn27aa290318af',
                 'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com',
@@ -53,73 +66,6 @@ function GetLocation() {
   }, []);
 
   return (
-    <div className='mainComponent w-[80%] flex flex-col mx-auto items-center gap-2 rounded-lg justify-center h-[300px] mt-6 bg-blue-500'>
-      {loading ? (
-        <div className='w-full flex justify-center flex-col items-center'>
-          <img
-          className="h-[40px]"
-          src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif"
-          alt=""
-        />
-          <p>Please wait for a moment...</p>
-        </div>
-      ) : (
-        <>
-          <div className='w-full text-center text-blue-100'>
-            <p className='text-4xl font-bold'>
-              {weatherData?.location?.name}
-            </p>
-            {weatherData?.location?.region}, {weatherData?.location?.country}
-          </div>
-          <div className='text-center flex flex-col gap-3 relative'>
-            <p className='text-7xl font-black text-white'>
-              {weatherData?.current?.temp_c}
-              <span className='text-2xl absolute top-1'>°C</span>
-            </p>
-            <p className='text-white'>{weatherData?.current?.condition.text}</p>
-          </div>
-          <div className='w-[60%] flex flex-col text-white font-light'>
-            <div className='w-[100%] flex items-center '>
-              <div className='w-1/2 text-left text-xs'>
-                <p className='w-full'>
-                  <i className='fa fa-wind w-4'></i> Wind{' '}
-                </p>
-              </div>
-              |
-              <div className='w-1/2 text-right text-xs'>
-                <p>{weatherData?.current?.wind_kph} kp/h </p>
-              </div>
-            </div>
-            <div className='w-[100%] flex items-center '>
-              <div className='w-1/2 text-left text-xs'>
-                <p className='w-full'>
-                  <i className='fa fa-droplet w-4'></i> Humidity{' '}
-                </p>
-              </div>
-              |
-              <div className='w-1/2 text-right text-xs'>
-                <p>{weatherData?.current?.humidity} % </p>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-function App() {
-  const [isSearchFieldOpen, setSearchFieldOpen] = useState(false);
-
-  const handleSearchButtonClick = () => {
-    setSearchFieldOpen(true);
-  };
-
-  const handleCloseButtonClick = () => {
-    setSearchFieldOpen(false);
-  };
-
-  return (
     <div className='w-full'>
       <header className='w-full h-10 flex justify-between p-6'>
         <div>
@@ -146,9 +92,92 @@ function App() {
           </div>
         )}
       </header>
-      <div>
-        <GetLocation />
+      <div className='grid grid-cols-12 px-6 gap-4'>
+        <div className='col-span-12 md:col-span-6'>
+          <GetLocation weatherData={weatherData} loading={loading} />
+        </div>
+        <div className='col-span-12 md:col-span-6'>
+          <Forecast locationpos={locationpos} />
+        </div>
       </div>
+    </div>
+  );
+}
+
+function GetLocation({ weatherData, loading }) {
+  return (
+    <div className='mainComponent w-[100%] flex flex-col mx-auto items-center gap-2 rounded-lg justify-center h-[300px] mt-6 md:w-full bg-blue-500'>
+      {loading ? (
+        <div className='w-full flex justify-center flex-col items-center'>
+          <i className='fa-solid fa-circle-notch fa-spin text-2xl text-white'></i>
+          <p className='text-white'>Please wait for a moment...</p>
+        </div>
+      ) : (
+        <div>
+          <div
+            className='w-full text-center text-blue-100 animate__animated animate__fadeInUp'
+            style={{
+              animationDelay: '500ms',
+            }}
+          >
+            <p className='text-4xl font-bold'>{weatherData?.location?.name}</p>
+            {weatherData?.location?.region}, {weatherData?.location?.country}
+          </div>
+          <div className='text-center flex flex-col gap-3 relative'>
+            <p
+              className='text-7xl font-black text-white animate__animated animate__fadeInUp'
+              style={{
+                animationDelay: '700ms',
+              }}
+            >
+              {weatherData?.current?.temp_c}
+              <span className='text-2xl absolute top-1'>°C</span>
+            </p>
+            <p
+              className='text-white animate__animated animate__fadeInUp'
+              style={{
+                animationDelay: '900ms',
+              }}
+            >
+              {weatherData?.current?.condition.text}
+            </p>
+          </div>
+          <div className='w-[100%] md:w-full flex flex-col text-white font-light'>
+            <div
+              className='w-[100%] flex items-center animate__animated animate__fadeInUp'
+              style={{
+                animationDelay: '1.1s',
+              }}
+            >
+              <div className='w-full md:w-full text-left text-xs'>
+                <p className='w-full'>
+                  <i className='fa fa-wind w-4'></i> Wind{' '}
+                </p>
+              </div>
+              |
+              <div className='w-full md:w-full text-right text-xs'>
+                <p>{weatherData?.current?.wind_kph} kp/h </p>
+              </div>
+            </div>
+            <div
+              className='w-[100%] flex items-center animate__animated animate__fadeInUp'
+              style={{
+                animationDelay: '1.3s',
+              }}
+            >
+              <div className='w-full md:w-full text-left text-xs'>
+                <p className='w-full'>
+                  <i className='fa fa-droplet w-4'></i> Humidity{' '}
+                </p>
+              </div>
+              |
+              <div className='w-full md:w-full text-right text-xs'>
+                <p>{weatherData?.current?.humidity} % </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

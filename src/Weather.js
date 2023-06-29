@@ -73,12 +73,14 @@ function Weather() {
   }, [query]);
 
   return (
-    <div className="w-full h-screen bg-yellow-400 flex flex-col gap-8 justify-center items-center p-6 overflow-x-hidden overflow-y-hidden">
-      <FormSearch />
+    <div className="w-full h-screen bg-yellow-400 flex flex-col gap-8 justify-center items-center p-6 overflow-hidden">
+      <div className="w-[400px">
+        <FormSearch />
+      </div>
       {loading ? (
         <p>Loading weather data...</p>
       ) : weatherData ? (
-        <div className="max-w-[90%] w-[400px] h-[450px] bg-white rounded-md flex flex-col justify-center items-center">
+        <div className="max-w-[100%] w-[400px] h-[450px] bg-white rounded-md flex flex-col justify-center items-center">
           <div className="flex w-full flex-col items-center justify-center h-full">
             <p className="text-center">
               {weatherData.location.name}, {weatherData.location.region}, {weatherData.location.country}
