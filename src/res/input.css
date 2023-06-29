@@ -1,7 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@font-face {
+    font-family: 'matter';
+    src: url('./Matter-Regular.otf') format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'matter';
+    src: url('./Matter-Bold.otf') format('opentype');
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: 'matter';
+    src: url('./Matter-Heavy.otf') format('opentype');
+    font-weight: 900;
+  }
+  
+  @font-face {
+    font-family: 'matter';
+    src: url('./Matter-Medium.otf') format('opentype');
+    font-weight: 500;
+  }
 body{
     font-family: matter;
 }
