@@ -53,8 +53,8 @@ function FormSearch() {
     }, 200);
   };
 
-  const handleSuggestionClick = () => {
-    setSearchQuery('');
+  const handleSuggestionClick = (location) => {
+    setSearchQuery(location.name);
     setSuggest([]);
     inputRef.current.focus();
   };
@@ -71,18 +71,19 @@ function FormSearch() {
             value={searchQuery}
             onChange={handleChange}
             onBlur={handleBlur}
-            ref={inputRef} autoComplete='off'
+            ref={inputRef}
+            autoComplete='off'
             required
           />
           <button type="submit" className="bg-blue-500 rounded-r-md hover:bg-blue-700 text-white font-bold py-2 px-4 h-14 w-14">
             <i className="fa fa-search"></i>
           </button>
         </div>
-        {suggest.length > 0 && (
-          <div className="w-full bg-white suggestions absolute bottom-0 h-max top-14">
+        {searchQuery.trim() !== '' && (
+          <div className="w-full bg-white suggestions absolute z-[9999] bottom-0 h-max top-14">
             {suggest.map((location) => (
-              <Link to={`/react-weather/check/${location.name} ${location.region} ${location.country}`} onClick={handleSuggestionClick}>
-                <p key={location.id} className='line-clamp-1 overflow-hidden whitespace-nowrap animate__animated animate__bounceIn h-10 py-2 px-3 border-b-[1px] w-[90%] mx-auto border-[#ccc]'>{location.name}, {location.region}, {location.country}</p>
+              <Link to={`/react-weather/check/${location.name} ${location.region} ${location.country}`} onClick={() => handleSuggestionClick(location)} key={location.id}>
+                <p className='line-clamp-1 overflow-hidden whitespace-nowrap animate__animated animate__bounceIn h-10 py-2 px-3 border-b-[1px] w-[90%] mx-auto border-[#ccc]'>{location.name}, {location.region}, {location.country}</p>
               </Link>
             ))}
           </div>

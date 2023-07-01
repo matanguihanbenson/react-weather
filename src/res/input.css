@@ -26,3 +26,55 @@
 body{
     font-family: matter;
 }
+.card {
+ 
+  height: 150px;
+  background: rgb(17, 4, 134);
+  display: flex;
+  color: white;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  background: linear-gradient(to right, rgb(20, 30, 48), rgb(36, 59, 85));
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(.99) !important;
+}
+
+.time-text {
+  font-size: 50px;
+  margin-top: 0px;
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.time-sub-text {
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.day-text {
+  font-size: 18px;
+  margin-top: 0px;
+  margin-left: 15px;
+  font-weight: 500;
+}
+
+.timeS {
+  font-size: 20px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover > .timeS {
+  font-size: 23px;
+}
+.sun{
+  background: rgba(255, 255, 0, 0.758) !important;
+  color: black;
+}

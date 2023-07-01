@@ -7,6 +7,7 @@ import Weather from './Weather';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import WeatherNone from './WeatherNone';
 import NotFound from './Notfound';
+import Footer from './Footer';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter basename='/'>
@@ -18,6 +19,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route component={NotFound} />
       </Routes>
     </BrowserRouter>
+
+    <Footer/>
   </React.StrictMode>
 );
 

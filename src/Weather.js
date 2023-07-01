@@ -54,7 +54,7 @@ function Weather() {
           hour12: true,
         });
 
-        const updatedValue = `${formattedDate} ${formattedTime}`;
+        const updatedValue = `${formattedDateLoc} ${formattedTimeLoc}`;
         setCurrentTime(formattedTimeLoc);
         setCurrentDate(formattedDateLoc);
         setLastUpdated(updatedValue);
@@ -63,7 +63,7 @@ function Weather() {
         setWeatherData(response.data);
       } catch (error) {
         console.error(error);
-        setWeatherData(null); 
+        setWeatherData(null);
       } finally {
         setLoading(false);
       }
@@ -74,7 +74,14 @@ function Weather() {
 
   return (
     <div className="w-full h-screen bg-yellow-400 flex flex-col gap-8 justify-center items-center p-6 overflow-hidden">
-      <div className="w-[400px">
+      <header className="w-full h-10 absolute inset-0 flex justify-between p-6">
+        <div>
+          <p className="text-xl">
+            <Link to="/react-weather">WeatherApp</Link>
+          </p>
+        </div>
+      </header>
+      <div className="w-[400px] max-w-[80%] flex justify-center">
         <FormSearch />
       </div>
       {loading ? (
@@ -82,19 +89,33 @@ function Weather() {
       ) : weatherData ? (
         <div className="max-w-[100%] w-[400px] h-[450px] bg-white rounded-md flex flex-col justify-center items-center">
           <div className="flex w-full flex-col items-center justify-center h-full">
-            <p className="text-center">
+            <p
+              className="text-center animate__animated animate__fadeInUp"
+              style={{ animationDelay: '100ms' }}
+            >
               {weatherData.location.name}, {weatherData.location.region}, {weatherData.location.country}
             </p>
-            <p>
+            <p className=" animate__animated animate__fadeInUp" style={{ animationDelay: '200ms' }}>
               {currentDate} {currentTime}
             </p>
-            <img src={weatherData.current.condition.icon} alt="" className="w-[30%] mt-4" />
-            <p className="text-6xl font-bold">{weatherData.current.temp_c}°C</p>
-            <p>{weatherData.current.condition.text}</p>
-            <p className="text-gray-500">Last Updated: {lastUpdated}</p>
+            <img
+              src={weatherData.current.condition.icon}
+              alt=""
+              className="w-[30%] mt-4 animate__animated animate__fadeInUp"
+              style={{ animationDelay: '300ms' }}
+            />
+            <p className="text-6xl font-bold animate__animated animate__fadeInUp" style={{ animationDelay: '400ms' }}>
+              {weatherData.current.temp_c}°C
+            </p>
+            <p className=" animate__animated animate__fadeInUp" style={{ animationDelay: '500ms' }}>
+              {weatherData.current.condition.text}
+            </p>
           </div>
-          <p className="text-xl bg-slate-600 p-2 text-white">
-              <Link to="/react-weather">Go back</Link>
+          <p
+            className="text-xl bg-slate-600 p-2 text-white animate__animated animate__fadeIn"
+            style={{ animationDelay: '700ms' }}
+          >
+            <Link to="/react-weather">Go back</Link>
           </p>
           <br />
         </div>
@@ -103,13 +124,10 @@ function Weather() {
           <img src={notFoundImage} className="w-[80%]" alt="" />
           <p className="text-slate-700 font-bold text-4xl">Location not found.</p>
           <p className="text-xl bg-slate-600 p-2 text-white">
-              <Link to="/react-weather">Go back</Link>
+            <Link to="/react-weather">Go back</Link>
           </p>
         </div>
       )}
-
-      <Footer/>
-      
     </div>
   );
 }
